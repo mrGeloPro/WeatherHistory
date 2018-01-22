@@ -9,8 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     var dateArray:Array = Array<String>()
     var weatherArray = [WeatherHistory]()
+    var urlString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +22,7 @@ class ViewController: UIViewController {
     }
     
     func loadData() {
-        if let urlWeather = URL(string: "http://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/bradforddata.txt") {
+        if let urlWeather = URL(string: urlString) {
             do {
                 let contents = try String(contentsOf: urlWeather)
                 self.weatherArray = WeatherHistory.parser(contents)
@@ -41,6 +45,7 @@ class ViewController: UIViewController {
                     }
                     return false
                 }
+                tableView.reloadData()
             } catch {
                 // contents could not be loaded
             }
@@ -60,7 +65,7 @@ extension ViewController: UITableViewDataSource {
         cell.textLabel?.text = "history of " + dateArray[indexPath.row]
         return cell
     }
-  
+    
 }
 
 extension ViewController: UITableViewDelegate {
@@ -69,10 +74,10 @@ extension ViewController: UITableViewDelegate {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "details") as? DetailsWeatherViewController {
             let weather = self.weatherArray
             vc.weathersArray = weather.filter({ (weather) -> Bool in
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy"
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy"
                 let dateString = dateFormatter.string(from: weather.date!)
-                    return dateString == dateArray[indexPath.row]
+                return dateString == dateArray[indexPath.row]
             })
             self.navigationController?.pushViewController(vc, animated: true)
         }
