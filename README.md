@@ -25,7 +25,7 @@ or cloned this repository. All components of this package are loaded
 dependence automatically 
 <img width="989" alt="2018-01-22 17 45 34" src="https://user-images.githubusercontent.com/29705051/35229471-2f9dd6b8-ff9c-11e7-889e-399b1999233b.png">
 Download only on devices that work with macOS
-Open these file (WeatherHistory.xcodeproj) by Xcode environment for macOS
+Open these file (WeatherHistory.xcworkspace) by Xcode environment for macOS
 Developed on the Xcode platform, version 9.1
 Use txt file from this end point: http://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/bradforddata.txt
 ## Usage:
